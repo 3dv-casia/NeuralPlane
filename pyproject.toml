@@ -1,0 +1,51 @@
+[build-system]
+requires = ["setuptools>=61.0"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "neuralplane"
+version = "0.1.0"
+description = "[ICLR'25] NeuralPlane: Structured 3D Reconstruction in Planar Primitives with Neural Fields"
+requires-python = ">=3.10.0"
+classifiers = [
+    "Programming Language :: Python",
+]
+readme = "README.md"
+license = { text="Apache 2.0"}
+
+dependencies = [
+    "nerfstudio==1.1.5",
+    "scipy==1.13.1",
+    "numpy==1.26.4",
+    "pycolmap==3.10.0",
+    "open3d==0.19.0",
+    "easydict==1.13",
+]
+
+[project.optional-dependencies]
+"stable-normal" = [
+    "einpops==0.8.1",
+    "transformers==4.37.1",
+    "xformers==0.0.25.post1",
+    "diffusers==0.28.0",
+]
+all = ["neuralplane[stable-normal]"]
+
+[project.urls]
+"Project Page" = "https://neuralplane.github.io/"
+"Paper" = "https://openreview.net/forum?id=5UKrnKuspb"
+"Author Homepage" = "https://timber-ye.github.io/home.html"
+
+[project.scripts]
+np-pre-geo-init = "neuralplane.scripts.geometry_init:entrypoint"
+np-pre-seg = "neuralplane.scripts.local_planar_primitives:entrypoint"
+np-train = "neuralplane.scripts.np_train:entrypoint"
+np-export = "neuralplane.scripts.export:entrypoint"
+np-eval = "neuralplane.scripts.np_eval:entrypoint"
+np-download = "neuralplane.scripts.download_models:entrypoint"
+
+[tool.setuptools.packages.find]
+include = ["neuralplane*", "thirdparty"]
+
+[project.entry-points.'nerfstudio.method_configs']
+neuralplane = 'neuralplane.neuralplane_config:neuralplane_method'
