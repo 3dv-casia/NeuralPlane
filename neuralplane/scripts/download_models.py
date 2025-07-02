@@ -1,5 +1,6 @@
 from dataclasses import dataclass
 from pathlib import Path
+from typing import Optional
 
 import os
 import gdown
@@ -12,6 +13,7 @@ class Args:
     """Download pretrained monocular prediction models."""
     dst: Path
     """Path to the directory to save the models."""
+    proxy: Optional[str] = None
 
 def download_models(args: Args):
 
@@ -19,7 +21,7 @@ def download_models(args: Args):
         args.dst.mkdir(parents=True, exist_ok=True)
     # sam_vit_h_4b8939
     if not (args.dst / "sam_vit_h_4b8939.pth").exists():
-        cmd = f"wget https://storage.googleapis.com/neuralplane/sam_vit_h_4b8939.pth -P {args.dst}"
+        cmd = f"wget https://dl.fbaipublicfiles.com/segment_anything/sam_vit_h_4b8939.pth -P {args.dst}"
         CONSOLE.log("Downloading sam_vit_h_4b8939.pth: " + cmd)
         os.system(cmd)
     else:
