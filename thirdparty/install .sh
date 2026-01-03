@@ -10,4 +10,5 @@ pip install -e thirdparty/segment-anything
 
 # hloc
 git clone --recursive https://github.com/cvg/Hierarchical-Localization/ thirdparty
+git -C thirdparty/Hierarchical-Localization checkout e3342201
 python -m pip install -e thirdparty/Hierarchical-Localization
